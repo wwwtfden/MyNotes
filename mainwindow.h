@@ -6,6 +6,7 @@
 #include <QtWidgets>
 #include <QList>
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -18,6 +19,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void displayNoteData();
+    void resetIndex();
+
+public slots:
     void addNewNote();
 
 private slots:
@@ -25,8 +30,14 @@ private slots:
 
     void on_pushButton_clicked();
 
+
+    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_listWidget_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
-    QList<Note> noteList;
+    QList<Note*> noteList;
+
 };
 #endif // MAINWINDOW_H
