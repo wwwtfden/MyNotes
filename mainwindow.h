@@ -21,6 +21,7 @@ public:
 
     void displayNoteData();
     void resetIndex();
+    QString parseStr(QString str);
 
 public slots:
     void addNewNote();
@@ -38,6 +39,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QList<Note*> noteList;
+    int activeNoteIndex;
 
 };
 #endif // MAINWINDOW_H
