@@ -9,12 +9,12 @@ public:
     ~Note();
     Note(QString insideText);
     void addText(QString text);
-    void setIndex(int num);
+  //  void setIndex(int num);
     QString getText();
-    int getIndex();
+  //  int getIndex();
 
 private:
-    int index;
+  //  int index;
     QString text;
 };
 
