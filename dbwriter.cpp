@@ -2,6 +2,7 @@
 
 DBWriter::DBWriter(QObject* parent): QObject(parent)
 {
+
     qDebug() << "DBWriter initialize";
     dbFile = new QFile();
     dbFile->setFileName(QApplication::applicationDirPath() + "database.bin");
@@ -9,32 +10,10 @@ DBWriter::DBWriter(QObject* parent): QObject(parent)
     if (dbFile->exists()){
         qDebug() << "File created";
         dbFile->flush();
-
-    }
-//    if(dbFile->exists() && dbFile->isOpen()){
-//            dbFile->flush();
-//            dbFile->close();
-//            dbFile->flush();
-//        }
-}
-
-
-void DBWriter::flush()
-{
-    if(dbFile->exists() && dbFile->isOpen()){
-        dbFile->flush();
     }
 }
 
 
-bool DBWriter::isReady()
-{
-    if(dbFile->exists() && dbFile->isOpen()){
-        return true;
-    } else {
-        return false;
-    }
-}
 
 void DBWriter::read()
 {
@@ -42,9 +21,25 @@ void DBWriter::read()
          qDebug() << "File opened for reading";
          QDataStream iStream(dbFile);
          Note tempNote;
-         iStream >> tempNote;
+   //      iStream >> tempNote;
          qDebug() << "Text from file:" << tempNote.getText();
     }
+}
+
+void DBWriter::saveFile(QList<Note*> list)
+{
+    QByteArray bar;
+    QDataStream barOutStream(&bar, QIODevice::WriteOnly);
+    //for (int i = 0; i < list.length(); i++){
+        Note tNote;
+        tNote.addText( list.at(0)->getText());
+        barOutStream << tNote;
+        qDebug() << "Convertation text " << list.at(0)->getText();
+  //  }
+    QDataStream barInStream(&bar, QIODevice::ReadOnly);
+    Note tNote2;
+    barInStream >> tNote2;
+    qDebug() << "tNote2.getText()" << tNote2.getText();
 }
 
 
@@ -52,17 +47,17 @@ void DBWriter::read()
 void DBWriter::write(QList<Note*> nl)
 {
     qDebug() << "DBWriter::write";
-  //  dbFile->open(QIODevice::Truncate);
-    if(dbFile->isOpen())
-    {
-        qDebug() << "File opened for writing";
-        QDataStream oStream(dbFile);
-        Note* tempNote = nl.at(0);
-       // QDataStream s2(dbFile);
-        qDebug() << "For write: " << tempNote << nl.at(0)->getText();
-        oStream << tempNote;
+//  //  dbFile->open(QIODevice::Truncate);
+//    if(dbFile->isOpen())
+//    {
+//        qDebug() << "File opened for writing";
+//        QDataStream oStream(dbFile);
+//        Note* tempNote = nl.at(0);
+//       // QDataStream s2(dbFile);
+//        qDebug() << "For write: " << tempNote << nl.at(0)->getText();
+//        oStream << tempNote;
+//    }
 
 
-    }
 }
 

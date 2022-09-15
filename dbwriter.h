@@ -13,12 +13,12 @@ class DBWriter  : public QObject
 public:
     explicit DBWriter(QObject *parent = 0);
     void write(QList<Note*> nl);
-    void flush();
-    bool isReady();
     void read();
+    void saveFile(QList<Note*> list);
 
 private:
     QFile* dbFile;
+ //   Note toNote;
  //   QDataStream oStream (QFile &file);
   //  QDataStream oStream;
 };

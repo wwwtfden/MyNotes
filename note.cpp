@@ -22,7 +22,7 @@ void Note::addText(QString text)
 //    this->index = index;
 //}
 
-QString Note::getText()
+QString Note::getText() const
 {
     return this->text;
 }
@@ -33,32 +33,22 @@ QString Note::getText()
 //}
 
 
-//QDataStream& operator<<(QDataStream& d, Note &item) {
-//    d << item.getText();
+
+
+//QDebug operator<<(QDebug d, const Note &n) {
+//    d << QString("Note( %1 )").arg(n.getText());
 //    return d;
 //}
 
-//QDataStream& operator>>(QDataStream& d, Note &item) {
-//    d >> item.text;
-//    return d;
-//}
-
-
-
-QDebug operator<<(QDebug d, Note &item) {
-    d << QString("Note( %1 )").arg(item.getText());
-    return d;
-}
-
-QDataStream &operator<<(QDataStream &d, Note &item)
+QDataStream &operator<<(QDataStream &d,const Note &n)
 {
-    d << item.getText();
+    d << n.getText();
        return d;
 }
 
-QDataStream &operator>>(QDataStream &d, Note &item)
+QDataStream &operator>>(QDataStream &d, Note &n)
 {
-    d >> item.text;
+    d >> n.text;
     return d;
 }
 

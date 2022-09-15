@@ -28,6 +28,7 @@ MainWindow::~MainWindow()
 void MainWindow::addNewNote()
 {
     Note* note = new Note();
+  //  Note note = new Note();
     noteList.append(note);
     qDebug() << "noteList.length()" << noteList.length();
     ui->pushButton->setEnabled(0);
@@ -52,9 +53,10 @@ void MainWindow::displayNoteData()
 //    ui->plainTextEdit->clear();
     ui->listWidget->setCurrentRow(activeNoteIndex, QItemSelectionModel::ToggleCurrent);
 
-    dbTools.write(noteList);
-    dbTools.flush();
-    dbTools.read();
+//    dbTools.write(noteList);
+//    dbTools.flush();
+//    dbTools.read();
+    dbTools.saveFile(noteList);
 }
 
 void MainWindow::resetIndex()

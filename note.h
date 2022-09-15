@@ -8,17 +8,20 @@ class Note
 public:
     Note();
    // ~Note();
-    Note(QString insideText);
+    //Note(QString insideText);
     void addText(QString text);
-    QString getText();
-    friend QDataStream& operator>>(QDataStream& d, Note& n);
+    QString getText() const;
+    friend QDataStream& operator>>(QDataStream& d, Note &n);
+    friend QDataStream& operator<<(QDataStream& d,const Note &n);
+
 
 private:
     QString text;
 };
 
-QDataStream& operator<<(QDataStream& d, Note &item);
-QDataStream& operator>>(QDataStream& d, Note &item);
+//QDataStream& operator<<(QDataStream& d, Note *&n);
+//QDataStream& operator>>(QDataStream& d, Note &n);
+//QDebug operator<<(QDebug d, const Note &n);
 
 
 #endif // NOTE_H

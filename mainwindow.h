@@ -43,6 +43,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QList<Note*> noteList;
+  //  QList<Note> noteList;
     int activeNoteIndex;
 
     DBWriter dbTools;
