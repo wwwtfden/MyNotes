@@ -3,6 +3,7 @@
 #include <QtWidgets>
 #include <deletenotdialog.h>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     noteList.append(new Note);
     qDebug() << noteList.at(0);
 
+   // dbTools = new DBWriter();
 }
 
 MainWindow::~MainWindow()
@@ -48,7 +50,10 @@ void MainWindow::displayNoteData()
         ui->listWidget->addItem(item);
     }
 //    ui->plainTextEdit->clear();
-    ui->listWidget->setCurrentRow(activeNoteIndex, QItemSelectionModel::ToggleCurrent); // удалить если что, проба
+    ui->listWidget->setCurrentRow(activeNoteIndex, QItemSelectionModel::ToggleCurrent);
+
+    dbTools.write(noteList);
+    dbTools.flush();
 }
 
 void MainWindow::resetIndex()
@@ -60,6 +65,8 @@ void MainWindow::resetIndex()
 
 QString MainWindow::parseStr(QString str)
 {
+    if (str.length() == 0) { return "..."; }
+
     if (str.length()> 25){
         str.truncate(25);
         str = str + "...";
@@ -130,3 +137,7 @@ void MainWindow::on_pushButton_2_clicked()
 //    }
     displayNoteData();
 }
+
+
+ //перегрузка операторов
+

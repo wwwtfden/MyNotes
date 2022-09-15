@@ -5,6 +5,7 @@
 #include <note.h>
 #include <QtWidgets>
 #include <QList>
+#include <dbwriter.h>
 
 
 QT_BEGIN_NAMESPACE
@@ -38,10 +39,13 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+
 private:
     Ui::MainWindow *ui;
     QList<Note*> noteList;
     int activeNoteIndex;
+
+    DBWriter dbTools;
 
 };
 #endif // MAINWINDOW_H

@@ -6,10 +6,10 @@ Note::Note()
  //   index = 999;
 }
 
-Note::Note(QString insideText)
-{
-    text = insideText;
-}
+//Note::Note(QString insideText)
+//{
+//    text = insideText;
+//}
 
 
 void Note::addText(QString text)
@@ -31,3 +31,19 @@ QString Note::getText()
 //{
 //    return this->index;
 //}
+
+
+QDataStream& operator<<(QDataStream& d, Note &item) {
+    d << item.getText();
+    return d;
+}
+
+QDataStream& operator>>(QDataStream& d, Note &item) {
+    d >> item.text;
+    return d;
+}
+
+QDebug operator<<(QDebug d, Note &item) {
+    d << QString("Note( %1 )").arg(item.getText());
+    return d;
+}
