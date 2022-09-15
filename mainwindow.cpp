@@ -54,6 +54,7 @@ void MainWindow::displayNoteData()
 
     dbTools.write(noteList);
     dbTools.flush();
+    dbTools.read();
 }
 
 void MainWindow::resetIndex()

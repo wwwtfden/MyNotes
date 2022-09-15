@@ -33,17 +33,32 @@ QString Note::getText()
 //}
 
 
-QDataStream& operator<<(QDataStream& d, Note &item) {
-    d << item.getText();
-    return d;
-}
+//QDataStream& operator<<(QDataStream& d, Note &item) {
+//    d << item.getText();
+//    return d;
+//}
 
-QDataStream& operator>>(QDataStream& d, Note &item) {
-    d >> item.text;
-    return d;
-}
+//QDataStream& operator>>(QDataStream& d, Note &item) {
+//    d >> item.text;
+//    return d;
+//}
+
+
 
 QDebug operator<<(QDebug d, Note &item) {
     d << QString("Note( %1 )").arg(item.getText());
     return d;
 }
+
+QDataStream &operator<<(QDataStream &d, Note &item)
+{
+    d << item.getText();
+       return d;
+}
+
+QDataStream &operator>>(QDataStream &d, Note &item)
+{
+    d >> item.text;
+    return d;
+}
+

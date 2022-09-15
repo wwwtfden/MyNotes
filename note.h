@@ -7,7 +7,7 @@ class Note
 {
 public:
     Note();
-    ~Note();
+   // ~Note();
     Note(QString insideText);
     void addText(QString text);
     QString getText();
@@ -17,6 +17,8 @@ private:
     QString text;
 };
 
+QDataStream& operator<<(QDataStream& d, Note &item);
+QDataStream& operator>>(QDataStream& d, Note &item);
 
 
 #endif // NOTE_H

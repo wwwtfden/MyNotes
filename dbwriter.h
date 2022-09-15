@@ -15,7 +15,7 @@ public:
     void write(QList<Note*> nl);
     void flush();
     bool isReady();
-
+    void read();
 
 private:
     QFile* dbFile;
