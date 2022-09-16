@@ -5,7 +5,6 @@
 #include <QObject>
 #include "note.h"
 #include <QList>
-//static const char* const FILE_NAME = "db.bin";
 
 class DBWriter  : public QObject
 {
@@ -14,7 +13,7 @@ public:
     explicit DBWriter(QObject *parent = 0);
     QList<Note> readFromFile();
     void saveFile(QList<Note*> list);
-    bool dbFileExistsAndReady();
+;
 
 private:
     QFile* dbFile;

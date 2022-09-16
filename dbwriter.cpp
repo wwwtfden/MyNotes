@@ -19,8 +19,7 @@ void DBWriter::saveFile(QList<Note*> list)
     dbFile->open(QIODevice::WriteOnly | QIODevice::Truncate); //сначала откроем файл для перезаписи
     QDataStream fileOutStream(dbFile); //откроем поток вывода в файл
     for (int i = 0; i < list.length(); i++){
-        Note tNote;
-        tNote.addText( list.at(i)->getText());
+        Note tNote(list.at(i)->getText());
         fileOutStream << tNote;
         qDebug() << "Convertation text " << i << " " << list.at(i)->getText();
     }
@@ -28,10 +27,7 @@ void DBWriter::saveFile(QList<Note*> list)
     dbFile->close();
 }
 
-bool DBWriter::dbFileExistsAndReady()
-{
-    return dbFile->exists();
-}
+
 
 QList<Note> DBWriter::readFromFile()
 {
@@ -51,8 +47,7 @@ QList<Note> DBWriter::readFromFile()
     }
     dbFile->close();
     if (temp.length() == 0) {
-        Note emptyNote;
-        emptyNote.addText("");
+        Note emptyNote("");
         temp.append(emptyNote);
     }
     return temp;
