@@ -72,7 +72,8 @@ QString MainWindow::parseStr(QString str)  //парсинг элемента в�
         QChar c = str.at(i);
         if (c == '\n'){
        //  qDebug() << "Found tag at index position" << i;
-         str.remove(i, 1);
+      //   str.remove(i, 1);
+         str.replace(i,1,' ');
         }
     }
     return str;
