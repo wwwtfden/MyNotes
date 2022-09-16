@@ -12,18 +12,14 @@ class DBWriter  : public QObject
 
 public:
     explicit DBWriter(QObject *parent = 0);
-    void write(QList<Note*> nl);
-    void read();
+    QList<Note> readFromFile();
     void saveFile(QList<Note*> list);
+    bool dbFileExistsAndReady();
 
 private:
     QFile* dbFile;
- //   Note toNote;
- //   QDataStream oStream (QFile &file);
-  //  QDataStream oStream;
+  //  QByteArray bar;
+
 };
-
-
-
 
 #endif // DBWRITER_H

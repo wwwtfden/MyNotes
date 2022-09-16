@@ -10,13 +10,23 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle("Note Editor");
-    ui->pushButton->setEnabled(0);
+    //ui->pushButton->setEnabled(0);
     QFont newFont("Arial", 12, 0, false);
     ui->plainTextEdit->setFont(newFont);
     activeNoteIndex = 0;
-    noteList.append(new Note);
-    qDebug() << noteList.at(0);
+  //  noteList.append(new Note);
+  //  qDebug() << noteList.at(0);
 
+    QList<Note> lst = dbTools.readFromFile();
+
+    for (int i = 0; i < lst.length(); i++){
+        Note* note = new Note;
+        note->addText(lst.at(i).getText());
+        noteList.append(note);
+        qDebug() << note->getText();
+    }
+    displayNoteData();
+    ui->plainTextEdit->setPlainText(noteList.at(activeNoteIndex)->getText());
    // dbTools = new DBWriter();
 }
 
@@ -36,7 +46,7 @@ void MainWindow::addNewNote()
     qDebug() << "activeNoteIndex" << activeNoteIndex;
     ui->listWidget->setCurrentRow(activeNoteIndex);
     ui->plainTextEdit->clear();
-
+    ui->plainTextEdit->setFocus();
     displayNoteData();
 }
 
@@ -53,18 +63,13 @@ void MainWindow::displayNoteData()
 //    ui->plainTextEdit->clear();
     ui->listWidget->setCurrentRow(activeNoteIndex, QItemSelectionModel::ToggleCurrent);
 
-//    dbTools.write(noteList);
-//    dbTools.flush();
-//    dbTools.read();
+
     dbTools.saveFile(noteList);
+    QList<Note> lst = dbTools.readFromFile();
+
 }
 
-void MainWindow::resetIndex()
-{
-//    for (int i = 0; i<noteList.length(); i++){
-//        noteList.at(i)->setIndex(i);
-//    }
-}
+
 
 QString MainWindow::parseStr(QString str)
 {
@@ -125,19 +130,25 @@ void MainWindow::on_pushButton_2_clicked()
 {
     DeleteNotDialog* deleteDialog = new DeleteNotDialog;
     if(deleteDialog->exec() == QDialog::Accepted){
-    //    qDebug() << "current Item Index" << ui->listWidget->currentRow();
+        if (noteList.length() >  1){
         qDebug() << "current Item Index" << activeNoteIndex;
         noteList.removeAt(activeNoteIndex);
         if(activeNoteIndex > 0){
-            activeNoteIndex--;
-        } else { activeNoteIndex = 0;}
-
+        activeNoteIndex--;
+        } else {
+        activeNoteIndex = 0;
+        }
         ui->listWidget->setCurrentRow(activeNoteIndex);
         ui->plainTextEdit->setPlainText(noteList.at(activeNoteIndex)->getText());
+        } else {
+            noteList.at(0)->addText("");
+            ui->plainTextEdit->setPlainText(noteList.at(0)->getText());
+            displayNoteData();
+        }
     }
-//    if (noteList.length() == 0){
-//        addNewNote();
-//    }
+
+
+
     displayNoteData();
 }
 
