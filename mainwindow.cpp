@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    aResWidget.show();
+
     this->setWindowTitle("Note Editor");
     QFont newFont("Arial", 12, 0, false);
     ui->plainTextEdit->setFont(newFont);

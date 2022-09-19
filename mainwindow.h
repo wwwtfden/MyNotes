@@ -6,6 +6,7 @@
 #include <QtWidgets>
 #include <QList>
 #include <dbwriter.h>
+#include "addonres.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -45,6 +46,7 @@ private:
     int activeNoteIndex;
 
     DBWriter dbTools;
+    AddOnRes aResWidget;
 
 };
 #endif // MAINWINDOW_H
