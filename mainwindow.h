@@ -6,7 +6,7 @@
 #include <QtWidgets>
 #include <QList>
 #include <dbwriter.h>
-#include "addonres.h"
+//#include "addonres.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -23,9 +23,20 @@ public:
 
     void displayNoteData();
     QString parseStr(QString str);
+    void resizeEvent(QResizeEvent* event);
+    void createMenuData();
 
 public slots:
     void addNewNote();
+    void setImageToNote();
+    void drawImage();
+
+    bool eventFilter(QObject *watched, QEvent *event);
+    void deleteImg();
+
+    void saveDbFile();
+
+    void closeEvent(QCloseEvent* e) override;
 
 private slots:
     void on_plainTextEdit_textChanged();
@@ -40,13 +51,20 @@ private slots:
     void on_pushButton_2_clicked();
 
 
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     QList<Note*> noteList;
     int activeNoteIndex;
+    bool savedFlag;
 
     DBWriter dbTools;
-    AddOnRes aResWidget;
+   // AddOnRes aResWidget;
+
+    QPixmap tmpImg;
+    QPixmap tmpImg2;
+
 
 };
 #endif // MAINWINDOW_H

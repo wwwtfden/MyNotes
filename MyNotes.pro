@@ -21,14 +21,18 @@ SOURCES += \
     deletenotdialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    note.cpp
+    note.cpp \
+    qexlabel.cpp \
+    saveonclosedialog.cpp
 
 HEADERS += \
     addonres.h \
     dbwriter.h \
     deletenotdialog.h \
     mainwindow.h \
-    note.h
+    note.h \
+    qexlabel.h \
+    saveonclosedialog.h
 
 FORMS += \
     addonres.ui \
