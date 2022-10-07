@@ -103,7 +103,7 @@ void MainWindow::drawImage()
 {
     ui->label->clear();
     tmpImg2 = noteList[activeNoteIndex]->getImg().scaled(QSize(ui->label->width(), ui->label->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    qDebug() << tmpImg2.size();
+  //  qDebug() << tmpImg2.size();
   // ui->label->update();
    ui->label->setPixmap(tmpImg2);
 }
@@ -127,12 +127,6 @@ void MainWindow::on_pushButton_clicked()
     addNewNote();
 }
 
-
-
-//void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
-//{
-
-//}
 
 void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 {
@@ -168,9 +162,6 @@ void MainWindow::on_pushButton_2_clicked()
             displayNoteData();
         }
     }
-
-
-
     displayNoteData();
 }
 
@@ -192,13 +183,34 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
 void MainWindow::createMenuData()
 {
+    //Создаем менюху с пунктом save
     QMenu *fileMenu = new QMenu("File");
     QAction *saveAction = new QAction("Save", fileMenu);
- //   connect(saveAction, &QAction::triggered, this, SLOT(saveDbFile()));
     connect(saveAction, &QAction::triggered, this, &MainWindow::saveDbFile);
-
     fileMenu->addAction(saveAction);
+
+    QAction *closeAction = new QAction("Close", fileMenu);
+    connect(closeAction, &QAction::triggered, this, &MainWindow::forceCloseApp);
+    fileMenu->addAction(closeAction);
+
     ui->menubar->addMenu(fileMenu);
+
+}
+
+void MainWindow::forceCloseApp()
+{
+    if (!savedFlag){
+       SaveOnCloseDialog* saveOnCloseDialog = new SaveOnCloseDialog;
+       if (saveOnCloseDialog->exec() == QDialog::Accepted){
+           saveDbFile();
+            qDebug() << "Save on close completed!";
+            QApplication::quit();
+       } else if (saveOnCloseDialog->exec() == QDialog::Rejected) {
+           QApplication::quit();
+       }
+    } else {
+        QApplication::quit();
+    }
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
@@ -234,15 +246,5 @@ void MainWindow::saveDbFile()
 void MainWindow::closeEvent(QCloseEvent *e)
 {
     qDebug() << "Close event terminated.";
-    if (!savedFlag){
-       SaveOnCloseDialog* saveOnCloseDialog = new SaveOnCloseDialog;
-       if (saveOnCloseDialog->exec() == QDialog::Accepted){
-           saveDbFile();
-            qDebug() << "Save on close completed!";
-            QApplication::quit();
-       } else {
-           QApplication::quit();
-       }
-
-    }
+    forceCloseApp();
 }

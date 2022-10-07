@@ -30,6 +30,7 @@ public slots:
     void addNewNote();
     void setImageToNote();
     void drawImage();
+    void forceCloseApp();
 
     bool eventFilter(QObject *watched, QEvent *event);
     void deleteImg();
