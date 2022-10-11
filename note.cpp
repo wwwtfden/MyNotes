@@ -52,6 +52,16 @@ void Note::clrImg()
    img.swap(tmp);
 }
 
+//unsigned int Note::getKey() const
+//{
+//    return key;
+//}
+
+//void Note::setKey(unsigned int value)
+//{
+//    key = value;
+//}
+
 
 QDataStream &operator<<(QDataStream &d,const Note &n)
 {

@@ -2,6 +2,7 @@
 #define NOTE_H
 #include <QtWidgets>
 #include <QDataStream>
+//#include <QHash>
 
 class Note
 {
@@ -19,9 +20,13 @@ public:
     void setImg(const QPixmap &value);
     void clrImg();
 
+//    unsigned int getKey() const;
+//    void setKey(unsigned int value);
+
 private:
     QString text;
     QPixmap img;
+//    unsigned int key;
 };
 
 //QDataStream& operator<<(QDataStream& d, Note *&n);
