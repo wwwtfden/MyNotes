@@ -20,7 +20,12 @@ Note::Note(QString text, QPixmap img)
 {
     this->text = text;
     this->img = img;
-  //  qDebug() << "Note::Note(QString text, QPixmap img) Created img" << this->img.size();
+    //  qDebug() << "Note::Note(QString text, QPixmap img) Created img" << this->img.size();
+}
+
+Note::~Note()
+{
+
 }
 
 

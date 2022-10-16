@@ -10,6 +10,7 @@ public:
     Note();
     Note(QString text);
     Note(QString text, QPixmap img);
+    ~Note();
     void addText(QString text);
     QString getText() const;
     friend QDataStream& operator>>(QDataStream& d, Note &n);
@@ -19,9 +20,6 @@ public:
     QPixmap getImg() const;
     void setImg(const QPixmap &value);
     void clrImg();
-
-//    unsigned int getKey() const;
-//    void setKey(unsigned int value);
 
 private:
     QString text;
