@@ -71,6 +71,7 @@ private:
     QPixmap tmpImg;
     QPixmap tmpImg2;
 
-
+    std::thread* th;
+    bool saveThreadStillRuns;
 };
 #endif // MAINWINDOW_H

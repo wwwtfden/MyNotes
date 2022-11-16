@@ -3,8 +3,9 @@
 #include <QtWidgets>
 #include <deletenotdialog.h>
 #include <saveonclosedialog.h>
+#include <thread>
 
-#include <QHash>
+//#include <QHash>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,7 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     createMenuData();
-    savedFlag = false;
+
+    saveThreadStillRuns = false;
 
     this->setWindowTitle("Note Editor");
     QFont newFont("Arial", 12, 0, false);
@@ -30,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->plainTextEdit->setPlainText(noteList.at(activeNoteIndex)->getText()); //инициализируем текстовое поле первой заметкой
     connect(ui->label, &QExLabel::imgDeleted, this, &MainWindow::deleteImg);
     ui->listWidget->installEventFilter(this);
+    savedFlag = true;
+ //   qDebug() << "savedFlag() " << savedFlag;
 }
 
 MainWindow::~MainWindow()
@@ -176,12 +180,15 @@ void MainWindow::forceCloseApp() //обработчик кнопки закры�
        SaveOnCloseDialog* saveOnCloseDialog = new SaveOnCloseDialog;
        if (saveOnCloseDialog->exec() == QDialog::Accepted){
            saveDbFile();
+           th->join();
             qDebug() << "Save on close completed!";
             QApplication::quit();
-       } else if (saveOnCloseDialog->exec() == QDialog::Rejected) {
+       } else /*if (saveOnCloseDialog->exec() == QDialog::Rejected) */{
            QApplication::quit();
        }
     } else {
+        qDebug() << saveThreadStillRuns;
+        if (saveThreadStillRuns) th->join();
         QApplication::quit();
     }
 }
@@ -279,12 +286,22 @@ void MainWindow::saveDbFile()
 {
     qDebug() << "SLOT(saveDbFile()";
     savedFlag = true;
-    dbTools.saveFile(noteList);
+    th = new std::thread([&](){
+                saveThreadStillRuns = true;
+                dbTools.saveFile(noteList);
+                saveThreadStillRuns = false;
+            });
+  //  th->detach();
+           // (dbTools.saveFile, noteList);
+  //  dbTools.saveFile(noteList);
 }
 
 void MainWindow::closeEvent(QCloseEvent *e)
 {
     qDebug() << "Close event terminated.";
+  //  th->join();
+    qDebug() << saveThreadStillRuns;
+  //  while (saveThreadStillRuns)
     forceCloseApp();
 }
 
