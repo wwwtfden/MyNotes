@@ -4,8 +4,10 @@
 #include <deletenotdialog.h>
 #include <saveonclosedialog.h>
 #include <thread>
+#include "addonres.h"
 
 //#include <QHash>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -28,13 +30,14 @@ MainWindow::MainWindow(QWidget *parent)
         noteList.append(note);
         qDebug() << note->getText();
     }
-    displayNoteData();
     ui->plainTextEdit->setPlainText(noteList.at(activeNoteIndex)->getText()); //инициализируем текстовое поле первой заметкой
     connect(ui->label, &QExLabel::imgDeleted, this, &MainWindow::deleteImg);
     connect(ui->label, &QExLabel::imgDClicked, this, &MainWindow::addResWgtInit);
     ui->listWidget->installEventFilter(this);
+    displayNoteData();
     savedFlag = true;
  //   qDebug() << "savedFlag() " << savedFlag;
+//    AddOnRes::instance = false;
 }
 
 MainWindow::~MainWindow()
@@ -107,6 +110,14 @@ void MainWindow::drawImage()
     ui->label->clear();
     tmpImg2 = noteList[activeNoteIndex]->getImg().scaled(QSize(ui->label->width(), ui->label->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation);
    ui->label->setPixmap(tmpImg2);
+
+   if (tmpImg2.size() == QSize(0,0)){
+       qDebug() << "Drawing null pixmap";
+  //     disconnect(ui->label, &QExLabel::imgDClicked, this, &MainWindow::addResWgtInit);
+   }
+   else {
+     //  connect(ui->label, &QExLabel::imgDClicked, this, &MainWindow::addResWgtInit);
+   }
 }
 
 
@@ -321,11 +332,13 @@ void MainWindow::on_debugButton_clicked()
 
 void MainWindow::addResWgtInit()
 {
-//    qDebug() << "Double click from MainWindow";
-//    AddOnRes aResWidget;
- //   aResWidget.setPix(noteList.at(activeNoteIndex)->getImg());
- //   aResWidget.initData();
+    if ((noteList.at(activeNoteIndex)->getImg()).size() != QSize(0,0)){
     aResWidget = new AddOnRes();
     aResWidget->setPix(noteList.at(activeNoteIndex)->getImg());
-    aResWidget->show();
+    }
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    addResWgtInit();
 }

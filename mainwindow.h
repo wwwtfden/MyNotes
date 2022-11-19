@@ -58,6 +58,8 @@ private slots:
 
     void on_debugButton_clicked();
 
+    void on_pushButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
     QList<Note*> noteList;

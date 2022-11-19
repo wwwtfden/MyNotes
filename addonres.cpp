@@ -14,11 +14,14 @@ AddOnRes::AddOnRes(QWidget *parent) :
     setPalette(pal);
 
     ui->setupUi(this);
+    this->show();
 }
 
 AddOnRes::~AddOnRes()
 {
     delete ui;
+  //  instance = false;
+ //   delete _instance;
 }
 
 QPixmap AddOnRes::getPix() const

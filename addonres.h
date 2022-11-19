@@ -14,12 +14,14 @@ class AddOnRes : public QWidget
     Q_OBJECT
 
 public:
-    explicit AddOnRes(QWidget *parent = nullptr);
+  //  AddOnRes(AddOnRes &other) = delete;
+    AddOnRes(QWidget *parent = nullptr);
     ~AddOnRes();
 
     QPixmap getPix() const;
     void setPix(const QPixmap &value);
     void resizeEvent(QResizeEvent* event);
+    static bool instance;
 
 private:
     Ui::AddOnRes *ui;
