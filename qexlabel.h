@@ -13,8 +13,10 @@ public:
 signals:
     void clicked(QObject* sender);
     void imgDeleted();
+    void imgDClicked();
 protected:
     void mouseReleaseEvent(QMouseEvent* e);
+    void mouseDoubleClickEvent(QMouseEvent* e);
 private:
     QMenu* pmnu;
 public slots:

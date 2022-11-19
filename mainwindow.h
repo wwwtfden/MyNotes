@@ -6,7 +6,7 @@
 #include <QtWidgets>
 #include <QList>
 #include <dbwriter.h>
-//#include "addonres.h"
+#include "addonres.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -34,7 +34,7 @@ public slots:
     void deleteNote();
 
     bool eventFilter(QObject *watched, QEvent *event);
-
+    void addResWgtInit();
     void deleteImg();
 
     void saveDbFile();
@@ -66,7 +66,7 @@ private:
     bool constructorFlag;
 
     DBWriter dbTools;
-   // AddOnRes aResWidget;
+    AddOnRes* aResWidget;
 
     QPixmap tmpImg;
     QPixmap tmpImg2;

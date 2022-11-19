@@ -15,6 +15,12 @@ void QExLabel::mouseReleaseEvent(QMouseEvent *e)
         }
 }
 
+void QExLabel::mouseDoubleClickEvent(QMouseEvent *e)
+{
+    emit imgDClicked();
+}
+
+
 void QExLabel::slotMenuActivated(QAction *pAction)
 {
     emit imgDeleted();

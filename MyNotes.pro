@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addonres.cpp \
     dbwriter.cpp \
     deletenotdialog.cpp \
     main.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
     saveonclosedialog.cpp
 
 HEADERS += \
+    addonres.h \
     dbwriter.h \
     deletenotdialog.h \
     mainwindow.h \
@@ -33,6 +35,7 @@ HEADERS += \
     saveonclosedialog.h
 
 FORMS += \
+    addonres.ui \
     mainwindow.ui
 
 # Default rules for deployment.

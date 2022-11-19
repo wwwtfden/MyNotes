@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     displayNoteData();
     ui->plainTextEdit->setPlainText(noteList.at(activeNoteIndex)->getText()); //инициализируем текстовое поле первой заметкой
     connect(ui->label, &QExLabel::imgDeleted, this, &MainWindow::deleteImg);
+    connect(ui->label, &QExLabel::imgDClicked, this, &MainWindow::addResWgtInit);
     ui->listWidget->installEventFilter(this);
     savedFlag = true;
  //   qDebug() << "savedFlag() " << savedFlag;
@@ -315,4 +316,16 @@ void MainWindow::on_debugButton_clicked()
         qDebug() << qHash(noteList.at(i));
     }
 
+}
+
+
+void MainWindow::addResWgtInit()
+{
+//    qDebug() << "Double click from MainWindow";
+//    AddOnRes aResWidget;
+ //   aResWidget.setPix(noteList.at(activeNoteIndex)->getImg());
+ //   aResWidget.initData();
+    aResWidget = new AddOnRes();
+    aResWidget->setPix(noteList.at(activeNoteIndex)->getImg());
+    aResWidget->show();
 }
