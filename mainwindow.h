@@ -62,7 +62,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QList<Note*> noteList;
+  //  QList<Note*> noteList;
+    QList<QSharedPointer<Note>> noteList;
     int activeNoteIndex;
     bool savedFlag;
     bool constructorFlag;

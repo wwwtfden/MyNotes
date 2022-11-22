@@ -26,8 +26,10 @@ MainWindow::MainWindow(QWidget *parent)
     QList<Note> lst = dbTools.readFromFile(); //читаем файл базы данных
 
     for (int i = 0; i < lst.length(); i++){ // инициализируем коллекцию заметок из буфера, который мы создали из файла
-        Note* note = new Note(lst.at(i).getText(), lst.at(i).getImg());
+        QSharedPointer<Note> note(new Note(lst.at(i).getText(), lst.at(i).getImg()));
+      //  noteList.append(note);
         noteList.append(note);
+      //  noteList.append(QSharedPointer<Note>(new Note(lst.at(i).getText(), lst.at(i).getImg())));
         qDebug() << note->getText();
     }
     ui->plainTextEdit->setPlainText(noteList.at(activeNoteIndex)->getText()); //инициализируем текстовое поле первой заметкой
@@ -47,7 +49,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::addNewNote()
 {
-    Note* note = new Note();
+   // Note* note = new Note();
+    QSharedPointer<Note> note(new Note());
     noteList.append(note); //заметки добавляются в конец QList
     qDebug() << "noteList.length()" << noteList.length();
     ui->pushButton->setEnabled(0);
@@ -223,7 +226,9 @@ void MainWindow::deleteNote() // удаление заметки
         displayNoteData();
 
         } else {
+           // noteList.clear();
             noteList.at(0)->addText("");
+            noteList.at(0)->clrImg();
             ui->plainTextEdit->setPlainText(noteList.at(0)->getText());
             displayNoteData();
         }

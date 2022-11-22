@@ -17,7 +17,8 @@ DBWriter::DBWriter(QObject* parent): QObject(parent)
 
 
 
-void DBWriter::saveFile(QList<Note*> list)
+//void DBWriter::saveFile(QList<Note*> list)
+void DBWriter::saveFile(QList<QSharedPointer<Note>> list)
 {
     qDebug() << "Function of saving file";
     dbFile->open(QIODevice::WriteOnly | QIODevice::Truncate); //сначала откроем файл для перезаписи

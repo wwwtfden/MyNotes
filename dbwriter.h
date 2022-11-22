@@ -13,7 +13,7 @@ public:
     explicit DBWriter(QObject *parent = 0);
 //    ~DBWriter();
     QList<Note> readFromFile();
-    void saveFile(QList<Note*> list);
+    void saveFile(QList<QSharedPointer<Note>> list);
 ;
 
 private:
