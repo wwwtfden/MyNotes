@@ -11,7 +11,7 @@ class DBWriter  : public QObject
 
 public:
     explicit DBWriter(QObject *parent = 0);
-//    ~DBWriter();
+    ~DBWriter();
     QList<Note> readFromFile();
     void saveFile(QList<QSharedPointer<Note>> list);
 ;

@@ -14,6 +14,12 @@ DBWriter::DBWriter(QObject* parent): QObject(parent)
     }
 }
 
+DBWriter::~DBWriter()
+{
+    qDebug() << "DBWriter снесло";
+    delete dbFile;
+}
+
 
 
 

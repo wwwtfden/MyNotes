@@ -15,6 +15,7 @@ SaveOnCloseDialog::SaveOnCloseDialog(QWidget* parent) : QDialog(parent, Qt::Wind
         baseLayout->addWidget(lbl);
         baseLayout->addLayout(layout);
         setLayout(baseLayout);
+        setAttribute(Qt::WA_DeleteOnClose); //удаляем при закрытии
 }
 
 

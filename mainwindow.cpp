@@ -108,7 +108,7 @@ void MainWindow::setImageToNote() // добавляем картинку к об
     else qDebug() << "error while image loaded";
 }
 
-void MainWindow::drawImage()
+void MainWindow::drawImage() //рисуем картинку
 {
     ui->label->clear();
     tmpImg2 = noteList[activeNoteIndex]->getImg().scaled(QSize(ui->label->width(), ui->label->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation);
