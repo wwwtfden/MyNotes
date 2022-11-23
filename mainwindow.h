@@ -68,7 +68,7 @@ private:
     bool savedFlag;
     bool constructorFlag;
 
-    DBWriter dbTools;
+    DBWriter* dbTools;
     AddOnRes* aResWidget;
 
     QPixmap tmpImg;

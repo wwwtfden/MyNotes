@@ -17,13 +17,13 @@ MainWindow::MainWindow(QWidget *parent)
     createMenuData();
 
     saveThreadStillRuns = false;
-
+    dbTools = new DBWriter();
     this->setWindowTitle("Note Editor");
     QFont newFont("Arial", 12, 0, false);
     ui->plainTextEdit->setFont(newFont);
     activeNoteIndex = 0;
 
-    QList<Note> lst = dbTools.readFromFile(); //читаем файл базы данных
+    QList<Note> lst = dbTools->readFromFile(); //читаем файл базы данных
 
     for (int i = 0; i < lst.length(); i++){ // инициализируем коллекцию заметок из буфера, который мы создали из файла
         QSharedPointer<Note> note(new Note(lst.at(i).getText(), lst.at(i).getImg()));
@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete dbTools;
+    //delete aResWidget;
 }
 
 void MainWindow::addNewNote()
@@ -305,7 +307,7 @@ void MainWindow::saveDbFile()
     savedFlag = true;
     th = new std::thread([&](){
                 saveThreadStillRuns = true;
-                dbTools.saveFile(noteList);
+                dbTools->saveFile(noteList);
                 saveThreadStillRuns = false;
             });
   //  th->detach();
